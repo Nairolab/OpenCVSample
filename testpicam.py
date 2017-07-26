@@ -1,6 +1,3 @@
-
-# Please use tab's.
-
 from picamera.array import PiRGBArray
 from picamera       import PiCamera
 import time
@@ -14,10 +11,10 @@ cam.resolution = (320, 240)
 cam.framerate  = 30
 raw            = PiRGBArray(cam, size=(320, 240))
  
-time.sleep(0.1) # Camera warm up
+time.sleep(0.1)
  
 for frameBGR in cam.capture_continuous(raw, format="bgr", use_video_port=True):
-	imgBGR = frameBGR.array # num.py array
+	imgBGR = frameBGR.array 
 	imgBW  = cv2.cvtColor(imgBGR, cv2.COLOR_BGR2GRAY)
 
         listFace = faceCascade.detectMultiScale(
@@ -25,7 +22,9 @@ for frameBGR in cam.capture_continuous(raw, format="bgr", use_video_port=True):
 		scaleFactor=1.1,
 		minNeighbors=5,
 		minSize=(30, 30),
+		#v2.X
 		#flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+		
 		#v3.1+
 		flags=cv2.CASCADE_SCALE_IMAGE
         )
@@ -38,9 +37,9 @@ for frameBGR in cam.capture_continuous(raw, format="bgr", use_video_port=True):
 
 	key = cv2.waitKey(1) & 0xFF
  
-	raw.truncate(0) # Clear stream, a must!
+	raw.truncate(0) # Clear stream
  
-	if key == ord("q"): # Press 'q' to quit
+	if key == ord("q"):
 		break
 
 
